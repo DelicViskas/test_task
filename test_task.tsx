@@ -33,14 +33,14 @@ class ParamEditor extends React.Component<Props, State> {
     super(props);
 
     this.state = {
-      paramValues: props.model.paramValues || [],
+      paramValues: props.model.paramValues || []
     };
   }
 
   getModel(): Model {
     return {
       paramValues: this.state.paramValues,
-      colors: this.props.model.colors || [],
+      colors: this.props.model.colors || []
     };
   }
 
@@ -56,7 +56,7 @@ class ParamEditor extends React.Component<Props, State> {
   inputField = (param: Param, paramValue: ParamValue | undefined) => {
     switch (param.type) {
       case 'number':
-        return <input type="number" value={paramValue ? paramValue.value : ''} onChange={(event) => this.handleInputChange(event, param.id)} />
+        return <input type="number" value={paramValue ? paramValue.value : ''} onChange={(event) => this.handleInputChange(event, param.id)} />;
       case 'select':
         return <select value={paramValue ? paramValue.value : ''} onChange={(event) => this.handleInputChange(event, param.id)}>
           <option value={param.name}>{param.name}</option>
@@ -65,9 +65,11 @@ class ParamEditor extends React.Component<Props, State> {
               {option}
             </option>
           ))}
-        </select>
-      default:
-        return <input type="text" value={paramValue ? paramValue.value : ''} onChange={(event) => this.handleInputChange(event, param.id)} />
+        </select>;
+      case 'string':
+        return <input type="text" value={paramValue ? paramValue.value : ''} onChange={(event) => this.handleInputChange(event, param.id)} />;
+      default: 
+        return null;
     }
   }
 
@@ -76,13 +78,12 @@ class ParamEditor extends React.Component<Props, State> {
     return <>
       {this.props.params.map(param => {
         const paramValue = this.state.paramValues.find(pv => pv.paramId === param.id);
-        return (
-          <div key={param.id}>
+        return <div key={param.id}>
             <label>{param.name}</label>
             {this.inputField(param, paramValue)}
             <button onClick={()=>console.log(this.getModel())}>getvodel</button>
           </div>
-        );
+
       })}
     </>
   }
